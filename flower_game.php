@@ -9,7 +9,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get 5 random flowers
+
 $sql = "SELECT FlowerID, Name, Abilities FROM flowers ORDER BY RAND() LIMIT 5";
 $result = $conn->query($sql);
 
@@ -24,11 +24,9 @@ if (count($flowers) < 5) {
     exit;
 }
 
-// Prepare flower names and uses arrays for choices
 $allNames = array_column($flowers, 'Name');
 $allUses = array_map(function($f) { return $f['Abilities']; }, $flowers);
 
-// Shuffle function for options
 function shuffleOptions($correct, $all) {
     $options = array_filter($all, fn($a) => $a !== $correct);
     shuffle($options);
@@ -84,13 +82,12 @@ function renderQuestion() {
   let allNames = flowers.map(f => f.Name);
   let allUses = flowers.map(f => f.Abilities);
 
-  // Filter out empty abilities
   allUses = allUses.filter(a => a && a.trim() !== '');
 
   let nameOptions = createOptions(flower.Name, allNames);
   let useOptions = createOptions(flower.Abilities, allUses);
 
-  let imgSrc = `img/${encodeURIComponent(flower.Name)}.png`; // or jpg if you want to support both, adjust here
+  let imgSrc = `img/${encodeURIComponent(flower.Name)}.png`;
 
   let html = `
     <div class="text-center mb-3">
@@ -132,7 +129,6 @@ function renderQuestion() {
     }
 
     if(selectedName && selectedUse) {
-      // Check answers
       let correctName = flower.Name;
       let correctUse = flower.Abilities;
 

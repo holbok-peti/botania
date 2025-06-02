@@ -11,7 +11,6 @@
   <div class="container">
     <h1>Botania Dashboard</h1>
 
-    <!-- Navigation buttons -->
     <div class="btn-group mb-3" role="group">
       <button class="btn btn-primary" data-page="craftingrecipes.php">Crafting Recipes</button>
       <button class="btn btn-primary" data-page="flowers.php">Flowers</button>
@@ -21,7 +20,6 @@
       <button class="btn btn-primary" data-page="flower_game.php">Flower Connection Game</button>
     </div>
 
-    <!-- Search form -->
     <form id="searchForm" class="mb-3" onsubmit="return false;">
       <div class="input-group">
         <input type="text" id="searchInput" class="form-control" placeholder="Search by name or color..." />
@@ -29,7 +27,7 @@
       </div>
     </form>
 
-    <!-- Content area -->
+
     <div id="contentArea">
       <p>Welcome! Click a category or search to get started.</p>
     </div>
@@ -37,7 +35,7 @@
 
 <script>
 $(function() {
-  // Load pages dynamically on nav button click
+
   $('.btn-group button').click(function() {
     let page = $(this).data('page');
     $('#contentArea').html('<p>Loading...</p>');
@@ -46,7 +44,6 @@ $(function() {
     });
   });
 
-  // Handle search form submit
   $('#searchForm').submit(function() {
     let query = $('#searchInput').val().trim();
     if (!query) {
@@ -57,7 +54,7 @@ $(function() {
     $.get('search.php', { q: query }, function(data) {
       $('#contentArea').html(data);
     });
-    return false; // prevent form submission
+    return false; 
   });
 });
 </script>

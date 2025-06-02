@@ -20,7 +20,6 @@ $search_esc = $conn->real_escape_string("%$search%");
 
 echo "<h3>Search results for: " . htmlspecialchars($search) . "</h3>";
 
-// Helper function to output table for each query result
 function outputTable($title, $columns, $rows) {
     if (count($rows) === 0) {
         echo "<div class='alert alert-secondary'>No $title found.</div>";
@@ -38,7 +37,6 @@ function outputTable($title, $columns, $rows) {
     foreach ($rows as $row) {
         echo "<tr>";
         foreach ($columns as $colKey => $colName) {
-            // Allow numeric keys for colName = colKey, or associative array colKey => colName
             if (is_int($colKey)) {
                 $val = $row[$colName];
             } else {
@@ -51,7 +49,6 @@ function outputTable($title, $columns, $rows) {
     echo "</tbody></table>";
 }
 
-// 1. Search craftingrecipes by Result (name)
 $sql1 = "SELECT RecipeID, Result, Ingredient1, Ingredient2, Ingredient3 FROM craftingrecipes WHERE Result LIKE '$search_esc'";
 $res1 = $conn->query($sql1);
 $craftingRows = [];
@@ -60,7 +57,6 @@ if ($res1) {
 }
 outputTable('Crafting Recipes', ['RecipeID', 'Result', 'Ingredient1', 'Ingredient2', 'Ingredient3'], $craftingRows);
 
-// 2. Search flowers by Name
 $sql2 = "SELECT FlowerID, Name, Type, ManaUsage FROM flowers WHERE Name LIKE '$search_esc'";
 $res2 = $conn->query($sql2);
 $flowerRows = [];
@@ -69,7 +65,6 @@ if ($res2) {
 }
 outputTable('Flowers', ['FlowerID', 'Name', 'Type', 'ManaUsage'], $flowerRows);
 
-// 3. Search functionalblocks by Name
 $sql3 = "SELECT BlockID, Name, AutomationType FROM functionalblocks WHERE Name LIKE '$search_esc'";
 $res3 = $conn->query($sql3);
 $blockRows = [];
@@ -78,7 +73,6 @@ if ($res3) {
 }
 outputTable('Functional Blocks', ['BlockID', 'Name', 'AutomationType'], $blockRows);
 
-// 4. Search items by Name
 $sql4 = "SELECT ItemID, Name, Category FROM items WHERE Name LIKE '$search_esc'";
 $res4 = $conn->query($sql4);
 $itemRows = [];
@@ -87,7 +81,6 @@ if ($res4) {
 }
 outputTable('Items', ['ItemID', 'Name', 'Category'], $itemRows);
 
-// 5. Search petals by Color (assuming 'Color' is like 'name' here)
 $sql5 = "SELECT PetalID, Color, Rarity FROM petals WHERE Color LIKE '$search_esc'";
 $res5 = $conn->query($sql5);
 $petalRows = [];
@@ -96,7 +89,6 @@ if ($res5) {
 }
 outputTable('Petals', ['PetalID', 'Color', 'Rarity'], $petalRows);
 
-// 6. Search seeds by Color
 $sql6 = "SELECT SeedID, Color, Rarity FROM seeds WHERE Color LIKE '$search_esc'";
 $res6 = $conn->query($sql6);
 $seedRows = [];
